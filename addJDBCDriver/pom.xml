@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>addJDBCDriver</groupId>
+    <artifactId>addJDBCDriver</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!--wildfly Setup-->
+        <wildfly-address>localhost</wildfly-address>
+        <wildfly-port>8080</wildfly-port>
+        <wildfly-username>YOUR_WILDFLY_USERNAME</wildfly-username>
+        <wildfly-password>YOUR_WILDFLY_PASSWORD</wildfly-password>
+        <wildfly-managmentPort>9990</wildfly-managmentPort>
+
+
+        <msql.driver.version>5.1.29</msql.driver.version>
+
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-cli</artifactId>
+            <version>8.2.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${msql.driver.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
+                <configuration>
+                    <force>false</force>
+                    <hostname>${wildfly-address}</hostname>
+                    <port>${wildfly-port}</port>
+                    <username>${wildfly-username}</username>
+                    <password>${wildfly-password}</password>
+                </configuration>
+
+                <executions>
+                    <!-- Deploy the JDBC library -->
+                    <execution>
+                        <id>deploy_jdbc_driver</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>deploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <port>${wildfly-managmentPort}</port>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <name>mysql-connector-java-${msql.driver.version}.jar</name>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
