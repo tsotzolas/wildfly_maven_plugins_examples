@@ -13,6 +13,6 @@ mvn clean
 ```
 
 ```
-mvn deploy 
+mvn install 
 ```
 
