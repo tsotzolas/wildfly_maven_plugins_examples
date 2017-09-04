@@ -12,7 +12,7 @@
 
     <modules>
         <module>addJDBCDriver</module>
-        <!--<module>add</module>-->
+        <module>addDatasource</module>
     </modules>
 
     <build>
