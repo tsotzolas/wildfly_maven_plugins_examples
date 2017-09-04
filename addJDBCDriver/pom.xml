@@ -20,8 +20,11 @@
         <wildfly-password>YOUR_WILDFLY_PASSWORD</wildfly-password>
         <wildfly-managmentPort>9990</wildfly-managmentPort>
 
+        <mysql.driver.version>5.1.29</mysql.driver.version>
 
-        <msql.driver.version>5.1.29</msql.driver.version>
+
+
+
 
     </properties>
 
@@ -36,7 +39,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${msql.driver.version}</version>
+            <version>${mysql.driver.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -68,7 +71,7 @@
                             <port>${wildfly-managmentPort}</port>
                             <groupId>mysql</groupId>
                             <artifactId>mysql-connector-java</artifactId>
-                            <name>mysql-connector-java-${msql.driver.version}.jar</name>
+                            <name>mysql-connector-java-${mysql.driver.version}.jar</name>
                         </configuration>
                     </execution>
                 </executions>
