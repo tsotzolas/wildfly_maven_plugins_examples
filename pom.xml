@@ -13,6 +13,7 @@
     <modules>
         <module>addJDBCDriver</module>
         <module>addDatasource</module>
+        <module>deployToMultiplesServer</module>
     </modules>
 
     <build>

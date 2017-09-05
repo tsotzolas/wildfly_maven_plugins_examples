@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This is sample pom.xml for deploying your application -->
+    <!-- to multiples servers with Wildfly Maven Plugin        -->
+    <!-- This configurations is for two Servers . You can easily add as many as you need-->
+
+
+    <!-- _____________________________________-->
+    <!--             S   0   S                -->
+    <!--______________________________________-->
+    <!--You must give access for the management port in your wildfly server-->
+    <!--Wildfly Maven Plugin need this access in order to deploy your's application -->
+    <!--You can start your application server like this-->
+
+    <!--For Linux Machine-->
+    <!--   sh standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0       -->
+
+    <!--For Windows Machines-->
+    <!--standalone.bat -b 0.0.0.0 -bmanagement 0.0.0.0 -->
+
+
+    <groupId>mavenPlugin</groupId>
+    <artifactId>deployToMultiplesServer</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+
+        <!--Puts your's dependencies here -->
+
+
+        <!--This is for Mysql JDBC Driver-->
+        <!--If you don't need it remove it-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- Do not Remove this-->
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-cli</artifactId>
+            <version>8.2.0.Final</version>
+        </dependency>
+    </dependencies>
+
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--wildfly-A Setup-->
+        <wildfly-a-address>SERVER_A_IP</wildfly-a-address>
+        <wildfly-a-username>SERVER_A_USERNAME</wildfly-a-username>
+        <wildfly-a-password>SERVER_A_PASSWORD</wildfly-a-password>
+        <wildfly-a-managmentPort>9990</wildfly-a-managmentPort>
+
+
+        <!--wildfly-B Setup-->
+        <wildfly-b-address>SERVER_B_IP</wildfly-b-address>
+        <wildfly-b-username>SERVER_B_USERNAME</wildfly-b-username>
+        <wildfly-b-password>SERVER_B_PASSWORD</wildfly-b-password>
+        <wildfly-b-managmentPort>9990</wildfly-b-managmentPort>
+
+
+        <application-name>YOYR'S_WAR_FILE_NAME</application-name>
+
+        <mysql.driver.version>5.1.29</mysql.driver.version>
+
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>wildfly-deploy-a</id>
+            <build>
+                <finalName>${application-name}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>1.0.2.Final</version>
+                        <configuration>
+                            <hostname>${wildfly-a-address}</hostname>
+                            <username>${wildfly-a-username}</username>
+                            <password>${wildfly-a-password}</password>
+                            <port>9990</port>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>wildfly-deploy-b</id>
+            <build>
+                <finalName>${application-name}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>1.0.2.Final</version>
+                        <configuration>
+                            <hostname>${wildfly-b-address}</hostname>
+                            <username>${wildfly-b-username}</username>
+                            <password>${wildfly-b-password}</password>
+                            <port>9990</port>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
