@@ -41,5 +41,5 @@ For deploy the application execute
 
 If you are using Jenkins 
 
-![Jenkin's Setup](https://github.com/tsotzolas/Photos/blob/master/Wildfly_maven_plugin/jenkins.png?raw=true)
+![Jenkin's Setup](https://github.com/tsotzolas/Photos/blob/master/Wildfly_maven_plugin/jenkins1.png?raw=true)
 
