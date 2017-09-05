@@ -29,7 +29,7 @@ mvn install
 ```
 
 
-##Deploy To multiple Wildfly Servers
+## Deploy To multiple Wildfly Servers
 
 Use the pom.xml in this module as a template for your's pom.xml
 
