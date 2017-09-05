@@ -36,7 +36,7 @@ Use the pom.xml in this module as a template for your's pom.xml
 For deploy the application execute 
 
 ```
- mvn wildfly:deploy -P wildfly-deploy-a,wildfly-deployc-b
+ mvn wildfly:deploy -P wildfly-deploy-a,wildfly-deploy-b
 ```
 
 If you are using Jenkins 
